@@ -1,4 +1,4 @@
-# Kubernetes CI/CD Experiment: Learning & Integration 🚀
+# Kubernetes CI/CD Experiment: Learning & Integration
 
 ## Overview
 
