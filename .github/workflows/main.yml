@@ -11,6 +11,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step per gestire il nome utente/repo con maiuscole
+      - name: Prepare image tag
+        run: |
+          # Prende il nome repo (es. AndreaProzzo21/repo) e lo trasforma in minuscolo
+          echo "IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -23,4 +29,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          # Usa la variabile calcolata nello step precedente
+          tags: ${{ env.IMAGE_TAG }}
